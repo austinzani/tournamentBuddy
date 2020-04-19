@@ -16,11 +16,19 @@
               width="40"
               @click="$router.push('/')"
             />
-            <h1 class="d-flex align-center pa-1 clickable" @click="$router.push('/')">Tournament Buddy</h1>
+            <h1
+              class="d-flex align-center pa-1 clickable"
+              @click="$router.push('/')"
+            >Tournament Buddy</h1>
           </div>
         </v-col>
 
-        <v-row v-if="user === null || user === undefined" class="d-flex justify-center align-start pa-1" dense align-end>
+        <v-row
+          v-if="user === null || user === undefined"
+          class="d-flex justify-center align-start pa-1"
+          dense
+          align-end
+        >
           <router-link to="/login" class="d-flex justify-center align-start pa-1">
             <v-col cols="4" class="d-flex justify-center align-start">
               <v-btn text v-if="user === null || user === undefined">
@@ -37,7 +45,10 @@
           </router-link>
         </v-row>
 
-        <v-row v-if="user !== null && user !== undefined" class="d-flex justify-center align-center pa-1" >
+        <v-row
+          v-if="user !== null && user !== undefined"
+          class="d-flex justify-center align-center pa-1"
+        >
           <v-menu offset-y v-if="user !== null && user !== undefined">
             <template v-slot:activator="{ on }">
               <v-col cols="4" class="d-flex justify-center">
@@ -73,7 +84,10 @@
             </template>
             <v-list>
               <v-list-item>
-                <h4 class="clickable" @click="$router.push('/browse-tournaments')">Browse Tournaments</h4>
+                <h4
+                  class="clickable"
+                  @click="$router.push('/browse-tournaments')"
+                >Browse Tournaments</h4>
               </v-list-item>
               <v-list-item>
                 <h4 class="clickable" @click="$router.push('/create-tournament')">Create Tournament</h4>
@@ -131,12 +145,12 @@ export default {
       this.$router.push("/login");
       this.$emit("update-user");
     },
-    updateTournament(id){
-      this.$router.push('/tournament-page/' + id); 
+    updateTournament(id) {
+      this.$router.push("/tournament-page/" + id);
       this.$emit("update-tournament", id);
     },
-    updateTeam(id){
-      this.$router.push('/team-page/' + id); 
+    updateTeam(id) {
+      this.$router.push("/team-page/" + id);
       this.$emit("update-team", id);
     }
   }
@@ -149,6 +163,6 @@ export default {
 }
 h1 {
   font-size: 2.5vw;
-  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-family: "Lucida Console", Courier, monospace;
 }
 </style>
