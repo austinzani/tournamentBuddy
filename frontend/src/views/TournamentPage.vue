@@ -1,15 +1,15 @@
  <template>
   <v-container>
     <v-row>
-      <v-col cols="3">
+      <v-col cols="6" sm="3">
         <v-img :src="getImage()" class="my-3" contain height="150" />
       </v-col>
-      <v-col cols="3">
+      <v-col col="6" sm="3">
         <h1>{{tournament.tournamentName}}</h1>
         <span>Organizer: {{tournamentOwner.username}}</span>
         <p>Location: {{tournament.location}}</p>
       </v-col>
-      <v-col cols="6">
+      <v-col cols="12" sm="6">
         <v-row>
           <v-col>
             <h3>Tournament Game/Sport:</h3>
@@ -32,26 +32,32 @@
           </v-col>
         </v-row>
       </v-col>
-      <v-col v-if="tournament.tournamentOwner === currentUser">
-        <v-card-actions>
+      <v-col
+        v-if="tournament.tournamentOwner === currentUser"
+        class="d-flex flex-wrap justify-center"
+      >
+        <v-col col="12" sm="3">
           <accept-entries
-            v-if="tournament.tournamentOwner === currentUser && !tournament.completed"
+            v-show="tournament.tournamentOwner === currentUser && !tournament.completed"
             :currentTourney="tournament"
+            @request-update="getTourneyTeams()"
           />
-          <v-spacer></v-spacer>
+        </v-col>
+        <v-col col="12" sm="3" class="d-flex flex-wrap justify-center">
           <v-btn
             color="#03DAC5"
             outlined
-            v-if="tournament.tournamentOwner === currentUser  && !tournament.completed"
+            v-if="isOwner && !tournament.completed"
             :to="{ name: 'tournament-pairings', params:{id: tournament.tournamentId, round: rounds.length + 1}}"
           >Make New Round</v-btn>
-          <v-spacer></v-spacer>
-          <!--dialog pop up-->
-          <!-- <v-btn
+        </v-col>
+        <!--dialog pop up-->
+        <!-- <v-btn
             color="#03DAC5"
             v-if="tournament.tournamentOwner === currentUser  && !tournament.completed"
             @click="endTournament()"
-          >End Tournament</v-btn>-->
+        >End Tournament</v-btn>-->
+        <v-col col="12" sm="3" class="d-flex flex-wrap justify-center">
           <v-dialog v-model="dialog2" width="500" overlay-opacity="0.9">
             <template v-slot:activator="{ on }">
               <v-btn
@@ -76,14 +82,15 @@
               </v-card-actions>
             </v-card>
           </v-dialog>
-          <!--dialog pop up-->
-          <v-spacer></v-spacer>
+        </v-col>
+        <!--dialog pop up-->
+        <v-col col="12" sm="3">
           <edit-tournament
             :current-tournament="tournament"
             @update-tournament="tourneyEvent()"
             v-if="tournament.tournamentOwner === currentUser  && !tournament.completed"
           />
-        </v-card-actions>
+        </v-col>
       </v-col>
     </v-row>
 
@@ -120,7 +127,7 @@
                         outlined
                         dark
                         v-on="on"
-                        v-if="tournament.tournamentOwner === currentUser && tournamentStarted === false"
+                        v-if="tournament.tournamentOwner == currentUser  && tournamentStarted === false"
                       >Remove Team</v-btn>
                     </template>
                     <v-card>
@@ -146,7 +153,7 @@
       </v-col>
     </v-row>
     <h1 class="text-center" v-if="tournament.completed">Final Results</h1>
-    <v-row v-if="tournament.completed">
+    <v-row v-if="tournament.completed && $vuetify.breakpoint.smAndUp">
       <v-spacer></v-spacer>
       <v-col col="1" class="text-center d-flex align-end silver">
         <v-card height="200" width="150">
@@ -156,23 +163,38 @@
       </v-col>
       <v-spacer></v-spacer>
       <v-col col="1" class="text-center d-flex align-end">
-        <v-card height="300" width="150" color="">
+        <v-card height="300" width="150" color>
           <h1>{{top3[1]}}</h1>
           <v-icon large color="#FFD600">mdi-medal</v-icon>
         </v-card>
       </v-col>
       <v-spacer></v-spacer>
       <v-col col="1" class="text-center d-flex align-end">
-        <v-card height="100" width="150" color="">
+        <v-card height="100" width="150" color>
           <h3>{{top3[3]}}</h3>
           <v-icon large color="#cd7f32">mdi-medal</v-icon>
         </v-card>
       </v-col>
       <v-spacer></v-spacer>
     </v-row>
+    <v-row v-if="tournament.completed && $vuetify.breakpoint.xs">
+      <v-col class="text-center">
+        <h3>
+          1st: {{top3[1]}}
+          <v-icon large color="#FFD600">mdi-medal</v-icon>
+        </h3>
+        <h4>
+          2nd: {{top3[2]}}
+          <v-icon large color="#E0E0E0">mdi-medal</v-icon>
+        </h4>
+        <h5>
+          3rd: {{top3[3]}}
+          <v-icon large color="#cd7f32">mdi-medal</v-icon>
+        </h5>
+      </v-col>
+    </v-row>
     <v-row>
-      <v-col class="d-flex" cols="12">
-        <v-spacer></v-spacer>
+      <v-col class="d-flex flex-wrap justify-center" cols="12">
         <h3 v-if="rounds.length > 0">Rounds:</h3>
         <v-card class="round" v-for="currentRound in rounds" :key="currentRound">
           <v-card-actions>
@@ -185,7 +207,6 @@
             >{{currentRound}}</v-btn>
           </v-card-actions>
         </v-card>
-        <v-spacer></v-spacer>
       </v-col>
     </v-row>
   </v-container>
@@ -195,7 +216,7 @@
 import auth from "@/auth";
 import EditTournament from "@/components/EditTournament.vue";
 import AcceptEntries from "@/components/AcceptEntries.vue";
-import img from '@/image.js';
+import img from "@/image.js";
 
 export default {
   components: {
@@ -374,7 +395,7 @@ export default {
     tourneyEvent() {
       this.$emit("update-tournament", this.tournament.tournamentId);
     },
-    getImage(){
+    getImage() {
       return img.getImage(this.tournament.tournamentId);
     }
   },
@@ -392,6 +413,9 @@ export default {
       } else {
         return this.startingTournament;
       }
+    },
+    isOwner() {
+      return this.tournament.tournamentOwner === this.currentUser;
     }
   },
   created() {

@@ -2,22 +2,21 @@
   <v-container>
     <v-row>
       <v-col class="d-flex flex-wrap justify-center" cols="12">
+         <v-btn
+          :to="{name: 'tournament-page', params: {id: this.tournament.tournamentId}}"
+          class="backbutton"
+          v-if="$vuetify.breakpoint.smAndUp"
+        >🏆 BACK TO TOURNAMENT HOME PAGE 🏆</v-btn>
         <v-btn
           :to="{name: 'tournament-page', params: {id: this.tournament.tournamentId}}"
           class="backbutton"
-        ><v-icon color="#DCAE3F">mdi-trophy-outline</v-icon>
-         <v-icon color="#A4A3A2">mdi-google-controller</v-icon>
-         <v-icon color="#DCAE3F">mdi-trophy-outline</v-icon> 
-         BACK TO TOURNAMENT HOME PAGE 
-         <v-icon color="#DCAE3F">mdi-trophy-outline</v-icon>
-         <v-icon color="#A4A3A2">mdi-google-controller</v-icon>
-         <v-icon color="#DCAE3F">mdi-trophy-outline</v-icon> 
-         </v-btn>
+          v-if="$vuetify.breakpoint.xs"
+        >BACK TO TOURNAMENT HOME PAGE</v-btn>
       </v-col>
     </v-row>
     <v-row justify="center">
-      <v-col cols="6" sm="3">
-        <v-img :src="require('../assets/logo.svg')" class="my-3" contain height="150" />
+      <v-col cols="5" sm="3">
+        <v-img :src="getImage()" class="my-3" contain height="150" />
       </v-col>
       <v-col cols="6" sm="3">
         <h1>{{tournament.tournamentName}}</h1>
@@ -38,7 +37,7 @@
     >Can't choose same team for Home and Away</p>
 
     <v-row justify="center">
-      <v-col class="d-flex" cols="6" sm="3">
+      <v-col class="d-flex" cols="10" sm="3">
         <v-select
           :disabled="teams.length === 0"
           :items="matchups"
@@ -49,7 +48,7 @@
           color="#03DAC5"
         ></v-select>
       </v-col>
-      <v-col class="d-flex" cols="6" sm="3">
+      <v-col class="d-flex" cols="10" sm="3">
         <v-select
           :items="teams"
           label="Home Team"
@@ -61,7 +60,7 @@
           color="#03DAC5"
         ></v-select>
       </v-col>
-      <v-col class="d-flex" cols="6" sm="3">
+      <v-col class="d-flex" cols="10" sm="3">
         <v-select
           :items="teams"
           label="Away Team"
@@ -73,7 +72,7 @@
           color="#03DAC5"
         ></v-select>
       </v-col>
-      <v-col class="d-flex" cols="6" sm="2">
+      <v-col class="d-flex" cols="10" sm="2">
         <v-btn
           v-if="readyToSubmit && teams.length > 0"
           @click="createMatchup()"
@@ -117,6 +116,7 @@
 <script>
 import api from "@/api.js";
 import auth from "@/auth.js";
+import img from "@/image.js";
 
 export default {
   data() {
@@ -146,6 +146,9 @@ export default {
     }
   },
   methods: {
+    getImage(){
+      return img.getImage(this.$route.params.id);
+    },
     getTournament() {
       api
         .getTournament(this.$route.params.id)

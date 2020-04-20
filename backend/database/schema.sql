@@ -582,11 +582,3 @@ INSERT INTO tournamentmatch (tourney_id, round_number, team_1_id, team_2_id, tea
 
 
 COMMIT TRANSACTION;
-
-SELECT * FROM users
-SELECT * FROM tournamentRequest
-SELECT * FROM tournamentRoster
-SELECT * FROM teamRoster
-SELECT * FROM teamRequest
-SELECT * FROM tournaments
-SELECT * FROM teams

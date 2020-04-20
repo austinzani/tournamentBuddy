@@ -5,7 +5,13 @@
         <v-btn
           :to="{name: 'tournament-page', params: {id: this.tournament.tournamentId}}"
           class="backbutton"
-        >🏆🎮🏆 BACK TO TOURNAMENT HOME PAGE 🏆🎮🏆</v-btn>
+          v-if="$vuetify.breakpoint.smAndUp"
+        >🏆 BACK TO TOURNAMENT HOME PAGE 🏆</v-btn>
+        <v-btn
+          :to="{name: 'tournament-page', params: {id: this.tournament.tournamentId}}"
+          class="backbutton"
+          v-if="$vuetify.breakpoint.xs"
+        >BACK TO TOURNAMENT HOME PAGE</v-btn>
       </v-col>
     </v-row>
     <v-row>
