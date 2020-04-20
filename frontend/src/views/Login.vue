@@ -1,7 +1,8 @@
 <template>
-  <v-card width="450" id="login" class="mx-auto mt-5 at-5">
+  <v-card :width="$vuetify.breakpoint.xs? 400 : 450" id="login" class="mx-auto mt-5 at-5">
     <v-card-title>
-      <h1 class="h3 mb-3 font-weight-normal">Please Sign In</h1>
+      <h1 v-if="!$vuetify.breakpoint.xs" class="h3 mb-3 font-weight-normal">Please Sign In</h1>
+      <h3 v-if="$vuetify.breakpoint.xs" class="h3 mb-3 font-weight-normal">Please Sign In</h3>
     </v-card-title>
     <v-card-text>
       <v-form class="form-signin" @submit.prevent="login">

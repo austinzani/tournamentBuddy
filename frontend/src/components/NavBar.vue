@@ -1,11 +1,11 @@
 <template>
-  <v-app-bar app prominent text src="@/assets/Banner.png">
+  <v-app-bar  app prominent src="@/assets/Banner.png">
     <v-container>
       <v-row>
         <!-- nav bar- row tag start -->
         <!-- https://i.picsum.photos/id/353/6016/3376.jpg -->
 
-        <v-col md="6" cols="12" class="pa-1">
+        <v-col md="6" cols="12" class="pa-0">
           <div class="d-flex align-center clickable">
             <v-img
               alt="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
@@ -29,33 +29,35 @@
           dense
           align-end
         >
+        <v-spacer></v-spacer>
+        <v-col cols="4" class="d-flex justify-center align-start">
           <router-link to="/login" class="d-flex justify-center align-start pa-1">
-            <v-col cols="4" class="d-flex justify-center align-start">
               <v-btn text v-if="user === null || user === undefined">
                 <v-icon>mdi-account</v-icon>Login
               </v-btn>
-            </v-col>
           </router-link>
+        </v-col>
+        <v-spacer></v-spacer>
+         <v-col cols="4" class="d-flex justify-center align-start">
           <router-link to="/register" class="d-flex justify-center align-start pa-1">
-            <v-col cols="4" class="d-flex justify-center align-start">
               <v-btn target="_blank" text v-if="user === null || user === undefined">
                 <v-icon>mdi-new-box</v-icon>Register
               </v-btn>
-            </v-col>
           </router-link>
+         </v-col>
+         <v-spacer></v-spacer>
         </v-row>
 
         <v-row
           v-if="user !== null && user !== undefined"
           class="d-flex justify-center align-center pa-1"
         >
+        <v-col cols="4" class="d-flex justify-center">
           <v-menu offset-y v-if="user !== null && user !== undefined">
             <template v-slot:activator="{ on }">
-              <v-col cols="4" class="d-flex justify-center">
                 <v-btn app target="_blank" text v-on="on">
                   <v-icon>mdi-account-group</v-icon>Teams
                 </v-btn>
-              </v-col>
             </template>
             <v-list>
               <v-list-item>
@@ -73,14 +75,14 @@
               </v-list-item>
             </v-list>
           </v-menu>
+        </v-col>
 
+          <v-col cols="4" class="d-flex justify-center align-center">
           <v-menu offset-y v-if="user !== null && user !== undefined">
             <template v-slot:activator="{ on }">
-              <v-col cols="4" class="d-flex justify-center align-center">
                 <v-btn target="_blank" text v-on="on">
                   <v-icon>mdi-trophy</v-icon>Tournaments
                 </v-btn>
-              </v-col>
             </template>
             <v-list>
               <v-list-item>
@@ -101,15 +103,18 @@
               </v-list-item>
             </v-list>
           </v-menu>
+          </v-col>
 
+          <v-col cols="4" class="d-flex justify-center align-center">
           <v-menu offset-y v-if="user !== null && user !== undefined">
             <template v-slot:activator="{ on }">
-              <v-col cols="4" class="d-flex justify-center align-center">
-                <v-btn target="_blank" text v-on="on">
+                <v-btn v-if="!$vuetify.breakpoint.xs" target="_blank" text v-on="on">
                   <v-icon>mdi-account-circle</v-icon>
                   Hi {{user.sub}}!
                 </v-btn>
-              </v-col>
+                <v-btn v-if="$vuetify.breakpoint.xs" target="_blank" text v-on="on">
+                  <v-icon>mdi-account-circle</v-icon>
+                </v-btn>
             </template>
             <v-list>
               <v-list-item>
@@ -120,6 +125,7 @@
               </v-list-item>
             </v-list>
           </v-menu>
+          </v-col>
         </v-row>
       </v-row>
     </v-container>

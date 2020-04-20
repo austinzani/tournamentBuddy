@@ -1,5 +1,5 @@
 <template>
-  <v-card width="500" id="register" class="mx-auto mt-5 at-5">
+  <v-card :width="$vuetify.breakpoint.xs? 400 : 500" id="register" class="mx-auto mt-5 at-5">
     <v-card-title>
       <h1 class="h3 mb-3 font-weight-normal">Create Account</h1>
     </v-card-title>
