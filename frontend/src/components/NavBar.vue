@@ -55,8 +55,11 @@
         <v-col cols="4" class="d-flex justify-center">
           <v-menu offset-y v-if="user !== null && user !== undefined">
             <template v-slot:activator="{ on }">
-                <v-btn app target="_blank" text v-on="on">
+                <v-btn v-if="!$vuetify.breakpoint.xs" app target="_blank" text v-on="on">
                   <v-icon>mdi-account-group</v-icon>Teams
+                </v-btn>
+                <v-btn v-if="$vuetify.breakpoint.xs" target="_blank" text v-on="on">
+                  <v-icon>mdi-account-group</v-icon>
                 </v-btn>
             </template>
             <v-list>
@@ -80,8 +83,11 @@
           <v-col cols="4" class="d-flex justify-center align-center">
           <v-menu offset-y v-if="user !== null && user !== undefined">
             <template v-slot:activator="{ on }">
-                <v-btn target="_blank" text v-on="on">
+                <v-btn v-if="!$vuetify.breakpoint.xs" target="_blank" text v-on="on">
                   <v-icon>mdi-trophy</v-icon>Tournaments
+                </v-btn>
+                <v-btn v-if="$vuetify.breakpoint.xs" target="_blank" text v-on="on">
+                  <v-icon>mdi-trophy</v-icon>
                 </v-btn>
             </template>
             <v-list>

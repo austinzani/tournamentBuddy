@@ -1,5 +1,5 @@
 <template>
-  <v-card width="500" id="register" class="mx-auto mt-5 at-5">
+  <v-card :width="$vuetify.breakpoint.xs? 400 : 500" id="register" class="mx-auto mt-5 at-5">
     <v-card-title dark large class="elevation-2">Create a New Tournament</v-card-title>
     <v-divider></v-divider>
     <v-card-text id="instructions" class="text-center">

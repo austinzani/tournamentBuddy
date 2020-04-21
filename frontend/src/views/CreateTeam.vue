@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-card width="500" class="mx-auto mt-5">
+    <v-card :width="$vuetify.breakpoint.xs? 400 : 500" class="mx-auto mt-5">
       <v-card-title>
         <h1 class="display-1">Create A Team</h1>
       </v-card-title>

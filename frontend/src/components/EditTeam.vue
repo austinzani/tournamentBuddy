@@ -2,7 +2,7 @@
   <v-row justify="center">
     <v-dialog v-model="dialog" persistent max-width="600px">
       <template v-slot:activator="{ on }">
-        <v-btn flat text v-on="on">
+        <v-btn outlined color="	#008080" dark v-on="on">
           <v-icon small>mdi-cog</v-icon>Edit Team
         </v-btn>
       </template>
@@ -16,7 +16,6 @@
               <v-col cols="12">
                 <v-form v-model="isValid">
                 <v-text-field v-model="team.teamName" label="Team Name" :rules="teamNameRules" error-count="2" color="#03DAC5" required/>
-                <v-text-field v-model="team.game" label="sport/game" :rules="teamGameRules" color="#03DAC5" required/>
                 <v-text-field v-model="team.teamBio" label="Team Bio" :rules="teamBioRules" color="#03DAC5" required/>
                 <v-checkbox v-model="team.acceptingNewMembers" label="Accepting Members" color="#03DAC5" required/>
                 </v-form>

@@ -1,75 +1,34 @@
 <template>
   <v-container>
     <v-row>
-      <v-col cols="3">
+      <v-col cols="6" sm="3">
         <v-img :src="getImage()" class="my-3" contain height="150" />
       </v-col>
-      <v-col cols="3">
+      <v-col cols="5" sm="3">
         <h1>{{team.teamName}}</h1>
         <h2>{{team.game}}</h2>
       </v-col>
-      <v-col cols="6">
+      <v-col cols="12" sm="6">
         <v-row>
           <v-col>
-            <h3>team bio:</h3>
-          </v-col>
-          <v-col v-if="captainedTeams.includes(team.teamId)">
-            <v-card-actions>
-              <edit-team :current-team="team" @update-team="getTeam(); teamEvent()" />
-            </v-card-actions>
+            <h3>Team Bio:</h3>
           </v-col>
         </v-row>
         <p>{{team.teamBio}}</p>
       </v-col>
     </v-row>
     <v-row>
-      <v-col v-if="captainedTeams.includes(team.teamId)">
-        <v-card>
-          <v-card-title>
-            Pending Applications
-            <v-spacer></v-spacer>
-            <v-text-field
-              v-model="searchApplicant"
-              append-icon="mdi-magnify"
-              label="Search Applicants"
-              single-line
-              hide-details
-            ></v-text-field>
-          </v-card-title>
-          <v-data-table :headers="pendingHeaders" :items="requests" :search="searchRequest">
-            <template v-slot:item="row">
-              <tr>
-                <td>{{row.item.senderName}}</td>
-                <td>{{row.item.message}}</td>
-                <td>
-                  <v-row>
-                    <v-btn
-                      class="mx-2"
-                      fab
-                      x-small
-                      color="#03DAC5"
-                      @click="dialog = false;acceptRequest(row.item)"
-                    >
-                      <v-icon>mdi-check-circle-outline</v-icon>
-                    </v-btn>
-
-                    <v-btn
-                      class="mx-2"
-                      fab
-                      x-small
-                      color="#D52D2D"
-                      @click="dialog = false;deleteRequest(row.item)"
-                    >
-                      <v-icon dark>mdi-minus-circle-outline</v-icon>
-                    </v-btn>
-                  </v-row>
-                </td>
-              </tr>
-            </template>
-          </v-data-table>
-        </v-card>
+      <v-spacer></v-spacer>
+      <v-col cols="12" sm="4">
+        <edit-team :current-team="team" @update-team="getTeam(); teamEvent()" />
       </v-col>
-
+      <v-spacer></v-spacer>
+      <v-col cols="12" sm="4">
+        <accept-applicants :current-team="team" @request-update="getRoster()"/>
+      </v-col>
+      <v-spacer></v-spacer>
+    </v-row>
+    <v-row>
       <v-col>
         <v-card>
           <v-card-title>
@@ -115,10 +74,12 @@ import EditTeam from "@/components/EditTeam.vue";
 import auth from "@/auth";
 import api from "@/api";
 import img from "@/image.js";
+import AcceptApplicants from "@/components/AcceptApplicants.vue";
 
 export default {
   components: {
-    EditTeam
+    EditTeam,
+    AcceptApplicants
   },
   props: {
     currentTeam: Object

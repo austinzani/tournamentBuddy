@@ -68,7 +68,7 @@ export default {
     },
     getTeamRequests() {
       fetch(
-        `${process.env.VUE_APP_REMOTE_API}/api/team/request?teamId=${this.team.tournamentId}`,
+        `${process.env.VUE_APP_REMOTE_API}/api/team/request?teamId=${this.currentTeam.teamId}`,
         {
           headers: {
             Authorization: "Bearer " + auth.getToken(),
@@ -88,9 +88,6 @@ export default {
         .catch(err => console.error(err));
     },
     acceptRequest(request) {
-      const teamId = this.team.teamId;
-
-      confirm("Are you sure you want to accept this request?") &&
         fetch(
           `${process.env.VUE_APP_REMOTE_API}/api/team/roster?captainStatus=false`,
           {
@@ -106,13 +103,12 @@ export default {
           if (response.ok) {
             this.deleteRequest(request);
             this.$emit("request-update");
+            this.getTeamRequests();
           }
         });
     },
 
     deleteRequest(request) {
-      const teamId = this.team.teamId;
-
       fetch(`${process.env.VUE_APP_REMOTE_API}/api/team/request`, {
         method: "DELETE",
         headers: {
@@ -123,6 +119,7 @@ export default {
         body: JSON.stringify(request)
       }).then(response => {
         if (response.ok) {
+        this.getTeamRequests();
           this.$emit("request-update");
         }
       });

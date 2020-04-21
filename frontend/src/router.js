@@ -56,14 +56,14 @@ const router = new Router({
     name: "create-team",
     component: CreateTeam,
     meta: {
-      requiresAuth: false
+      requiresAuth: true
     },
   }, {
     path: "/user-info",
     name: "user-info",
     component: UserInfo,
     meta: {
-      requiresAuth: false
+      requiresAuth: true
     }
   },
   {
@@ -71,7 +71,7 @@ const router = new Router({
     name: "browse-teams",
     component: BrowseTeams,
     meta: {
-      requiresAuth: false
+      requiresAuth: true
     }
   },
   {
@@ -79,7 +79,7 @@ const router = new Router({
     name: "team-page",
     component: TeamPage,
     meta: {
-      requiresAuth: false
+      requiresAuth: true
     }
 
   },
@@ -96,7 +96,7 @@ const router = new Router({
     name: "create-tournament",
     component: CreateTournament,
     meta: {
-      requiresAuth: false
+      requiresAuth: true
     }
   },
   {
@@ -104,7 +104,7 @@ const router = new Router({
     name: "tournament-page",
     component: TournamentPage,
     meta: {
-      requiresAuth: false
+      requiresAuth: true
     }
   },
   {
@@ -112,7 +112,7 @@ const router = new Router({
     name: "tournament-pairings",
     component: TournamentPairings,
     meta: {
-      requiresAuth: false
+      requiresAuth: true
     }
   },
   {
@@ -120,7 +120,7 @@ const router = new Router({
     name: "round",
     component: Round,
     meta: {
-      requiresAuth: false
+      requiresAuth: true
     }
   }
   ]
