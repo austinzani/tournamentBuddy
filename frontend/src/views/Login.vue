@@ -81,7 +81,7 @@ export default {
             this.$emit("update-user");
           }
         })
-        .catch(err => console.error(err));
+        .catch();
     }
   }
 };

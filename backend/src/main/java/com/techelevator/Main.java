@@ -23,9 +23,15 @@ public class Main implements WebMvcConfigurer {
 	public BasicDataSource dataSource() {
 		BasicDataSource dataSource = new BasicDataSource();
 		dataSource.setDriverClassName("org.postgresql.Driver");
-		dataSource.setUrl("jdbc:postgresql://localhost:5432/tourneydb");
-		dataSource.setUsername("postgres");
-		dataSource.setPassword("postgres1");
+		String herokuDbUrl = System.getenv("JDBC_DATABASE_URL");
+		if (herokuDbUrl != null) {
+			dataSource.setUrl(herokuDbUrl);
+		} else {
+			dataSource.setUrl("jdbc:postgresql://localhost:5432/tourneydb");
+			dataSource.setUsername("postgres");
+			dataSource.setPassword("postgres1");
+		}
+
 		return dataSource;
 	}
 

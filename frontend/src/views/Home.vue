@@ -7,26 +7,26 @@
       </v-col>
     </v-row>
     <v-row>
-      <v-col col="6">
+      <v-col col="12" sm="6">
         <v-img
           :src="require('../assets/brackets.jpg')"
           class="my-3"
           contain
         />
         <p>Come and see our many tournaments featuring all kinds of different sports and games. From magic to basketball, here at Tournament Buddy, we've got them all!</p>
-        <v-btn href="/browse-tournaments">
-           Click here to browse tournaments
+        <v-btn href="/browse-tournaments" class="d-flex">
+           Browse Tournaments
         </v-btn>
       </v-col>
-      <v-col cols="6">
+      <v-col cols="12" sm="6">
         <v-img
           :src="require('../assets/athletes.jpg')"
           class="my-3"
           contain
         />
         <p>We've got some fierce competitors in our selection of awesome teams! Register with us to become the best of the best!</p>
-        <v-btn href="/register">
-           Click here to register
+        <v-btn href="/register" class="d-flex"> 
+           Register
         </v-btn>
       </v-col>
     </v-row>
@@ -58,8 +58,6 @@
   z-index: 1;
   position: relative;
 }
-.my-3{
-max-width: 30vw;
-}
+
 
 </style>
