@@ -19,7 +19,7 @@
             <h1
               class="d-flex align-center pa-1 clickable"
               @click="$router.push('/')"
-            >Tournament Buddy</h1>
+            >Tourney Buddy</h1>
           </div>
         </v-col>
 

@@ -10,13 +10,17 @@
         <v-form v-model="isValid" ref="joinTournamentForm">
           <v-card-title>
             <v-row>
+              <v-col cols="12" v-if="isMember === false && userTeams.length === 0">
+                <span class="headline">You Have No Eligible Teams to Join Tournament</span>
+                <p class="body-1">You need to be captain of a team that plays {{game}}</p>
+              </v-col>
               <v-col cols="6">
-                <span v-if="isMember === false" class="headline">Join Tournament</span>
+                <span v-if="isMember === false && userTeams.length > 0" class="headline">Join Tournament</span>
                 <span v-if="isMember === true" class="body-1">Your team is in this tournament. </span>
               </v-col>
               <v-col class="d-flex" cols="6" >
                 <v-select
-                  v-if="isMember === false"
+                  v-if="isMember === false && userTeams.length > 0"
                   :items="userTeams"
                   item-text="teamName"
                   v-model="selectedTeam"
@@ -32,7 +36,7 @@
           </v-card-title>
           <v-card-text>
             <v-container>
-              <v-row>
+              <v-row v-if="userTeams.length > 0">
                 <v-col cols="12">
                   <v-textarea
                     color="#03DAC5"
@@ -44,6 +48,13 @@
                   ></v-textarea>
                 </v-col>
               </v-row>
+              <v-row v-if="userTeams.length === 0 && isMember === false">
+                <v-spacer></v-spacer>
+                <v-btn @click="$router.push('/create-team')">Create Team</v-btn>
+                <v-spacer></v-spacer>
+                <v-btn @click="$router.push('/browse-teams')" >Browse Teams</v-btn>
+                <v-spacer></v-spacer>
+              </v-row>
             </v-container>
           </v-card-text>
         </v-form>
@@ -51,6 +62,7 @@
           <v-spacer></v-spacer>
           <v-btn color="#03DAC5" text @click="dialog = false;">Close</v-btn>
           <v-btn
+            v-if="userTeams.length > 0"
             color="#03DAC5"
             :disabled="(!isValid) || (isMember === true)"
             text

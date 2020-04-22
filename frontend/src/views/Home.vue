@@ -3,7 +3,7 @@
   <v-container id="hello">
     <v-row class = "text-center">
       <v-col>
-        <h1 class="display-3 font-weight-bold mb-3">Welcome to Tournament Buddy!</h1>
+        <h1 class="display-3 font-weight-bold mb-3">Welcome to Tourney Buddy!</h1>
       </v-col>
     </v-row>
     <v-row>
@@ -14,7 +14,7 @@
           contain
         />
         <p>Come and see our many tournaments featuring all kinds of different sports and games. From magic to basketball, here at Tournament Buddy, we've got them all!</p>
-        <v-btn href="/browse-tournaments" class="d-flex">
+        <v-btn @click="$router.push('/browse-tournaments')" class="d-flex">
            Browse Tournaments
         </v-btn>
       </v-col>
@@ -25,7 +25,7 @@
           contain
         />
         <p>We've got some fierce competitors in our selection of awesome teams! Register with us to become the best of the best!</p>
-        <v-btn href="/register" class="d-flex"> 
+        <v-btn @click="$router.push('/register')" class="d-flex"> 
            Register
         </v-btn>
       </v-col>

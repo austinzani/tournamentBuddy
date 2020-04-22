@@ -17,7 +17,7 @@
         <p>{{team.teamBio}}</p>
       </v-col>
     </v-row>
-    <v-row>
+    <v-row v-if="isCaptain">
       <v-spacer></v-spacer>
       <v-col cols="12" sm="4">
         <edit-team :current-team="team" @update-team="getTeam(); teamEvent()" />
@@ -251,6 +251,15 @@ export default {
       } else {
         return this.startingTeam;
       }
+    },
+    isCaptain(){
+      let result = false;
+      this.captainedTeams.forEach(element => {
+        if(element === this.team.teamId){
+          result = true;
+        }
+      });
+      return result
     }
   }
 };
